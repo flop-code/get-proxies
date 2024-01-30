@@ -1,0 +1,31 @@
+[io]
+# URLs of sources, from where to fetch proxies.
+# Responses of those should be raw text in format "IP:PORT".
+sources = [
+    "https://raw.githubusercontent.com/monosans/proxy-list/main/proxies_anonymous/socks5.txt",
+    "https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt"
+]
+
+# Filename for the results (proxies that passed all the tests).
+output_filename = "proxies.txt"
+
+
+[tests]
+# Number of tests for each of the proxies.
+# Higher value = more reliable proxies, but takes longer time to test.
+number_of_tests = 2
+
+# URL for tests, to which all the requests with proxies will be made.
+tests_url = "https://httpstat.us/200"
+
+# Expected response code.
+# If response code of maden request will be the same as this value, test will be passed.
+expected_response_code = 200
+
+# Connection timeout for proxies (in seconds).
+# Lower value = faster proxies, but fewer results items.
+connection_timeout = 5
+
+# Delay between each of the tests (in seconds).
+# Higher value = more reliable proxies, but takes longer time to test.
+delay_between_tests = 120
