@@ -4,7 +4,6 @@
   <img alt="Python3.10+ Only" src="https://img.shields.io/badge/Python_3.10%2B-Only-purple">
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/flop-code/get-proxies">
   <img alt="GitHub License" src="https://img.shields.io/github/license/flop-code/get-proxies">
-  <img alt="Scrutinizer build" src="https://img.shields.io/scrutinizer/build/g/flop-code/get-proxies">
   <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/flop-code/get-proxies">
 </p>
 
