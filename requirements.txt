@@ -9,3 +9,4 @@ multidict==6.0.4
 python-socks==2.4.4
 yarl==1.9.4
 colorama==0.4.6
+toml==0.10.2

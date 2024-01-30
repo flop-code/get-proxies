@@ -1,6 +1,6 @@
 from typing import Any
 from sys import argv
-from tomllib import load as toml_load, TOMLDecodeError
+from toml import load as toml_load, TomlDecodeError
 import asyncio
 
 from colorama import Fore
@@ -106,12 +106,11 @@ class ConfigParser:
     def __init__(self, config_filename: str):
         self.filename = config_filename
 
-        with open(self.filename, "rb") as config_file:
-            try:
-                self._config = toml_load(config_file)
-            except TOMLDecodeError:
-                Log.err("Error while decoding config file. Exiting.")
-                quit(1)
+        try:
+            self._config = toml_load(self.filename)
+        except TomlDecodeError:
+            Log.err("Error while decoding config file. Exiting.")
+            quit(1)
 
         self.CONFIG_SCHEMA = {
             "io": {"sources": list, "output_filename": str},
