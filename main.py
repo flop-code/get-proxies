@@ -95,8 +95,8 @@ class GetProxies:
                                 await asyncio.sleep(self.delay_between_tests)
                         else:
                             break
-                except OSError as e:
-                    if e.errno == 24 and not self.too_many_open_files:
+                except (OSError, RuntimeError) as e:
+                    if (e.errno == 24 or e == RuntimeError) and not self.too_many_open_files:
                         Log.err(f"OS Error #24 occurred. Try lowering \"N_at_once\" parameter in your config.")
                         self.too_many_open_files = True
                         return url, False
