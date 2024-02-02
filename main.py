@@ -16,29 +16,29 @@ class Log:
     debug_mode = False
 
     @staticmethod
-    def _log(fore: Fore, prefix: str, msg, **kwargs):
+    def log(fore: Fore, prefix: str, msg, **kwargs):
         print(fore + (prefix + "\t") + Fore.RESET + str(msg), **kwargs)
 
     @staticmethod
     def inf(msg, **kwargs) -> None:
-        Log._log(Fore.LIGHTBLACK_EX, "INF", msg, **kwargs)
+        Log.log(Fore.LIGHTBLACK_EX, "INF", msg, **kwargs)
 
     @staticmethod
     def ok(msg, **kwargs) -> None:
-        Log._log(Fore.LIGHTGREEN_EX, "OK", msg, **kwargs)
+        Log.log(Fore.LIGHTGREEN_EX, "OK", msg, **kwargs)
 
     @staticmethod
     def wrn(msg, **kwargs) -> None:
-        Log._log(Fore.LIGHTYELLOW_EX, "WRN", msg, **kwargs)
+        Log.log(Fore.LIGHTYELLOW_EX, "WRN", msg, **kwargs)
 
     @staticmethod
     def err(msg, **kwargs) -> None:
-        Log._log(Fore.LIGHTRED_EX, "ERR", msg, **kwargs)
+        Log.log(Fore.LIGHTRED_EX, "ERR", msg, **kwargs)
 
     @staticmethod
     def dbg(msg, **kwargs) -> None:
         if Log.debug_mode:
-            Log._log(Fore.LIGHTWHITE_EX, "DBG", pformat(msg), **kwargs)
+            Log.log(Fore.LIGHTWHITE_EX, "DBG", pformat(msg), **kwargs)
 
 
 class GetProxies:
@@ -124,7 +124,7 @@ class GetProxies:
             blocks_left = number_of_blocks - block_number
             est_time_per_block = (time() - started_at) // block_number
             time_left = blocks_left * est_time_per_block
-            Log.inf(f"Checking proxies... ~{percents}%, ~{round(time_left / 60, 2)} min left", end="\r")
+            Log.inf(f"Checking proxies... ~{percents}%, ~{round(time_left / 60, 2)} min left" + " "*5, end="\r")
 
         return results
 
@@ -217,7 +217,7 @@ async def main(args: list[str]) -> None:
 
     Log.inf("Testing proxies... (This may take some time)")
     proxies = await get_proxies.test_proxies(proxy_list)
-    Log.ok(f"Tests completed, {len(proxies)} proxies passed." + " "*12, end="\n\n")
+    Log.log(Fore.LIGHTGREEN_EX, "OK ", f"Tests completed, {len(proxies)} proxies passed." + " "*12, end="\n\n")
 
     Log.inf("Writing to output file...\n")
     with open(config_parser.config["output_filename"], "w") as output_file:
