@@ -1,4 +1,7 @@
 [io]
+# Debug mode (true/false). Changes log level to "Debug". AKA: Display development logs.
+debug_mode = false
+
 # URLs of sources, from where to fetch proxies.
 # Responses of those should be raw text in format "IP:PORT".
 sources = [
@@ -29,3 +32,10 @@ connection_timeout = 5
 # Delay between each of the tests (in seconds).
 # Higher value = more reliable proxies, but takes longer time to test.
 delay_between_tests = 120
+
+# Number of tests running in parallel.
+# Higher value = faster testing, but it can increase network & CPU load.
+# Not recommended to have N_at_once greater than 64 (higher values works unstable because of open-files limit).
+# Zero value sets N_at_once to infinity (tries to check all the proxies at a time).
+# !!! Use with caution, because high values can imitate DDoS attacks on testing web-server.
+N_at_once = 64

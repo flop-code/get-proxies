@@ -46,7 +46,7 @@ To change the configuration you can either edit "`config.toml`" file or create y
 Don't worry, if you skip one of the parameters or write it wrong, the program will warn you.
 
 ## How does it work?
-The work at all stages is **asynchronous**, which makes the fetching and testing process really fast.
+The work at all stages is **asynchronous**.
 
 The script fetches proxies from the sources _specified in the config file_, then runs a certain number of tests, with a certain delay between them to filter out non-working proxies.
 
@@ -58,14 +58,6 @@ The total test time will be no longer than the last example, but the network loa
 **Each individual test works on the principle of sending a request to the HTTP server** (_also specified in the config file_) **through a certain proxy server**, and if the response code is the same as expected (_specified in the config file_), the test will be considered as passed. Otherwise, the proxy will be recognized as not working and will not participate in all subsequent tests.
 
 At the end of all tests, proxies recognized as working will be written to a separate file "`proxies.txt`" in a format ready to be copied into the Proxychains config file.
-
-### Screenshots
-
-
-<p align="center">
-  <img src="https://i.imgur.com/FO3KDGCl.jpg" alt="Normal screenshot" width="500"/>
-</p>
-
 
 ### Educational purposes only
 
