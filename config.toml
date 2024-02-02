@@ -31,11 +31,9 @@ connection_timeout = 5
 
 # Delay between each of the tests (in seconds).
 # Higher value = more reliable proxies, but takes longer time to test.
-delay_between_tests = 120
+delay_between_tests = 30
 
-# Number of tests running in parallel.
+# Number of tests running in parallel in range [1; 512].
 # Higher value = faster testing, but it can increase network & CPU load.
-# Not recommended to have N_at_once greater than 64 (higher values works unstable because of open-files limit).
-# Zero value sets N_at_once to infinity (tries to check all the proxies at a time).
-# !!! Use with caution, because high values can imitate DDoS attacks on testing web-server.
-N_at_once = 64
+# Values higher than 256 works unstable.
+N_at_once = 256

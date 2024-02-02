@@ -58,7 +58,6 @@ class GetProxies:
         self.tests_url = tests_url
         self.expected_response_code = expected_response_code
         self.N_at_once = N_at_once
-        self.too_many_open_files = False
         self.__dict__.update(kwargs)
 
     async def fetch_proxies(self) -> set[str]:
@@ -95,17 +94,11 @@ class GetProxies:
                                 await asyncio.sleep(self.delay_between_tests)
                         else:
                             break
-                except (OSError, RuntimeError) as e:
-                    if (e.errno == 24 or e == RuntimeError) and not self.too_many_open_files:
-                        Log.err(f"OS Error #24 occurred. Try lowering \"N_at_once\" parameter in your config.")
-                        self.too_many_open_files = True
-                        return url, False
-                    return url, False
                 except (Exception,):
                     return url, False
             else:
                 return url, True
-        return url, False
+            return url, False
 
     async def test_proxies(self, proxies: set[str]) -> set[str]:
         """Test proxies.
@@ -210,8 +203,10 @@ async def main(args: list[str]) -> None:
 
     cfg = config_parser.config
     Log.debug_mode = cfg["debug_mode"]
-    if cfg["N_at_once"] == 0:
-        cfg["N_at_once"] = 2**32 - 1
+    if cfg["N_at_once"] not in range(1, 257):
+        Log.err(f"N_at_once should be less or equal to 256.")
+        exit(1)
+
     Log.dbg(cfg)
 
     get_proxies = GetProxies(**cfg)
